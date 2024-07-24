@@ -56,6 +56,8 @@ exports.uploadFile = async (req, res) => {
                 filename: `${Date.now()}-${file.originalname}`,
                 metadata: {
                     title: req.body.title,
+                    type: req.body.type,
+                    difficulty: req.body.difficulty,
                     description: req.body.description,
                     name: req.user.name ,
                     userId: req.user.id

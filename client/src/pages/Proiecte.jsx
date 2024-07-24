@@ -1,33 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Proiecte.css';
+import { useAuth } from '../contexts/AuthContext';
+import { message } from 'antd';
 
 function UploadProject() {
+  const { token } = useAuth(); // Get the token from the Auth context
   const [title, setTitle] = useState('');
+  const [type, setType] = useState('option1');
+  const [difficulty, setDifficulty] = useState('option1');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const [user, setUser] = useState({ id: '', name: '' });
 
   useEffect(() => {
+    if (!token) {
+      console.error('Token is null or undefined');
+      return;
+    }
+
     async function fetchUserDetails() {
       try {
         const response = await fetch('http://localhost:3000/api/user/me', {
           method: 'GET',
-          credentials: 'include', // Ensure cookies are included
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+          credentials: 'include',
         });
-
+  
+        console.log('Response:', response); 
+  
         if (response.ok) {
           const userDetails = await response.json();
           setUser(userDetails);
+          console.log('User details:', userDetails); 
         } else {
-          console.error('Failed to fetch user details');
+          console.error('Failed to fetch user details', response.status, await response.text());
         }
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
     }
-
+  
     fetchUserDetails();
-  }, []);
+  }, [token]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,6 +55,8 @@ function UploadProject() {
 
     const formData = new FormData();
     formData.append('title', title);
+    formData.append('type', type);
+    formData.append('difficulty', difficulty);
     formData.append('description', description);
     formData.append('file', file);
     formData.append('userId', user.id); // Include userId
@@ -47,22 +65,26 @@ function UploadProject() {
     try {
       const response = await fetch('http://localhost:3000/api/files/upload', {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`, // Include the token in the headers
+        },
         body: formData,
-        credentials: 'include', // Ensure cookies are included
+        credentials: 'include',
       });
 
       if (response.ok) {
-        alert('Proiectul a fost încărcat cu succes!');
+        message.success('Proiectul a fost încărcat cu succes!');
         setTitle('');
         setDescription('');
         setFile(null);
       } else {
         const errorData = await response.json();
         console.error('Upload error:', errorData);
-        alert(`Eroare la încărcarea proiectului: ${errorData.error}`);
+        message.error(`Eroare la încărcarea proiectului: Trebuie sa te loghezi`);
       }
     } catch (error) {
       console.error('Eroare la încărcarea proiectului:', error);
+      message.error('Eroare la încărcarea proiectului');
     }
   };
 
@@ -79,6 +101,31 @@ function UploadProject() {
             onChange={(e) => setTitle(e.target.value)}
             required
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="type">Tip:</label>
+          <select
+            id="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+          >
+            <option value="option1">Programare</option>
+            <option value="option2">Retelistica</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="type">Dificultate:</label>
+          <select
+            id="type"
+            value={type}
+            onChange={(e) => setDifficulty(e.target.value)}
+            required
+          >
+            <option value="option1">Incepator</option>
+            <option value="option2">Mediu</option>
+            <option value="option3">Avansat</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="description">Descriere:</label>

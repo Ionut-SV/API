@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -9,31 +10,39 @@ const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        const storedToken = Cookies.get('user_token');
-        const storedUserData = JSON.parse(localStorage.getItem('user_data'));
-        if (storedToken && storedUserData) {
+        const storedToken = Cookies.get('accessToken');
+        if (storedToken) {
             setToken(storedToken);
-            setUserData(storedUserData);
-            setIsAuthenticated(true);
+            fetchUserData(storedToken);
         }
     }, []);
 
-    const login = (newToken, newData) => {
-        Cookies.set('user_token', newToken, { expires: 7 }); // Token will expire in 7 days
-        
+    const fetchUserData = async (token) => {
+        try {
+            const response = await axios.get('/api/user', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setUserData(response.data);
+            setIsAuthenticated(true);
+        } catch (error) {
+            console.error('Failed to fetch user data:', error);
+            logout();
+        }
+    };
+
+    const login = async (newToken, newData) => {
+        Cookies.set('accessToken', newToken, { expires: 7 });
         setToken(newToken);
         setUserData(newData);
         setIsAuthenticated(true);
-        alert("Autentificare reusita")
     };
 
     const logout = () => {
-        Cookies.remove('user_token');
-       
+        Cookies.remove('accessToken');
         setToken(null);
         setUserData(null);
         setIsAuthenticated(false);
-        
+        // Optionally, redirect the user to the login page
     };
 
     return (

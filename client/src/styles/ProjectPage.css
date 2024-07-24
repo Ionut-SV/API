@@ -1,0 +1,61 @@
+/* ProjectPage.css */
+
+.projects-page {
+    padding: 20px;
+  }
+  
+  .tag-buttons {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px; /* Spațiu între butoane */
+  }
+  
+  .tag-buttons button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .tag-buttons button:hover {
+    background-color: #0056b3;
+  }
+  
+  .project-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Spațiu între carduri */
+  }
+  
+  .course-card {
+    background-color: #f0f0f0; /* Culoare de fundal gri deschis */
+    border: 1px solid #ddd; /* Margine pentru carduri */
+    border-radius: 8px; /* Colțuri rotunjite */
+    padding: 20px;
+    width: 300px; /* Lățime fixă pentru carduri */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Umbre pentru efect vizual */
+  }
+  
+  .course-card h3 {
+    margin-top: 0;
+  }
+  
+  .load-more-button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .load-more-button:hover {
+    background-color: #218838;
+  }
+  
