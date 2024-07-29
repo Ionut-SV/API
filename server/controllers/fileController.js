@@ -151,6 +151,7 @@ exports.getFileById = async (req, res) => {
             contentType: file.contentType,
             length: file.length,
             uploadDate: file.uploadDate,
+            metadata: file.metadata // Ensure metadata is included
         });
     } catch (err) {
         console.error('Error finding file:', err);

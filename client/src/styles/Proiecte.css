@@ -1,52 +1,99 @@
-.upload-project-container {
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .upload-project-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .upload-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .form-group textarea {
-    height: 100px;
-    resize: vertical;
-  }
-  
-  .submit-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
+/* Reset default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.projects-page {
+  padding: 20px;
+}
+
+.projects-page h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  /* Removed text-align center */
+}
+
+.search-bar {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start; /* Align search bar to the left */
+}
+
+.search-bar input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 400px; /* Set a max width for the search bar */
+  font-size: 14px;
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px; /* Space between filters */
+  justify-content: flex-start; /* Align filters to the left */
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.filter select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter select:hover {
+  background-color: #f8f9fa;
+}
+
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between cards */
+  justify-content: flex-start; /* Align cards to the left */
+}
+
+.project-card {
+  background-color: #f0f0f0; /* Light grey background */
+  border: 1px solid #ddd; /* Border for the cards */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px;
+  width: calc(25% - 20px); /* Width for 4 cards per row with space */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Shadow for visual effect */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.project-card h3 {
+  margin-top: 0;
+}
+
+.load-more-button {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.load-more-button:hover {
+  background-color: #218838;
+}

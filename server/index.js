@@ -27,7 +27,7 @@ app.use('/api/files', fileRouter);
 
  //MongoDB Connection
 mongoose
-    .connect('mongodb://127.0.0.1:27017/authentication')
+    .connect('mongodb+srv://telacad:telacad2024@telacad.ms1pwzj.mongodb.net/?retryWrites=true&w=majority&appName=Telacad')
     .then(() => console.log('Connected to MongoDB!'))
     .catch((error)=>console.error("Failed to connect to MongoDB:", error));
 

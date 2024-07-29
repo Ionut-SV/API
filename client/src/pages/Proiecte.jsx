@@ -113,8 +113,8 @@ function UploadProject() {
             required
           >
             <option value="">Selectează tipul</option> {/* Added default empty option */}
-            <option value="programare">Programare</option>
-            <option value="retelistica">Retelistica</option>
+            <option value="Programare">Programare</option>
+            <option value="Retelistica">Retelistica</option>
           </select>
         </div>
         <div className="form-group">
@@ -126,9 +126,9 @@ function UploadProject() {
             required
           >
             <option value="">Selectează dificultatea</option> {/* Added default empty option */}
-            <option value="option1">Incepator</option>
-            <option value="option2">Mediu</option>
-            <option value="option3">Avansat</option>
+            <option value="Incepator">Incepator</option>
+            <option value="Mediu">Mediu</option>
+            <option value="Avansat">Avansat</option>
           </select>
         </div>
         <div className="form-group">

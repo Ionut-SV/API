@@ -1,9 +1,80 @@
+/* src/styles/ProjectDetailPage.css */
+
 .project-detail-page {
-    padding: 20px;
-  }
-  
-  .project-detail-page img {
-    max-width: 100%;
-    height: auto;
-  }
-  
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 1200px; /* Maximizează lățimea paginii pentru un aspect mai larg */
+  margin: 0 auto;
+}
+
+.project-content {
+  display: flex;
+  gap: 20px;
+}
+
+.project-metadata {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.project-metadata h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #333;
+  padding-bottom: 5px;
+}
+
+.project-metadata p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.project-metadata div {
+  margin-bottom: 10px;
+}
+
+.project-file {
+  flex: 2;
+  text-align: center;
+}
+
+.preview-container {
+  margin-top: 20px;
+}
+
+.file-preview {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.pdf-preview {
+  height: 600px; /* Ajustează înălțimea iframe-ului pentru PDF */
+}
+
+.image-preview {
+  max-height: 600px; /* Ajustează înălțimea imaginilor */
+}
+
+.view-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.view-button:hover {
+  background-color: #0056b3;
+}
