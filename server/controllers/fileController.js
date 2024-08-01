@@ -4,14 +4,14 @@ const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
 const User = require('../models/userModel');
 
-const mongoURI = 'mongodb://127.0.0.1:27017/authentication';
+const mongoURI = 'mongodb+srv://telacad:telacad2024@telacad.ms1pwzj.mongodb.net/?retryWrites=true&w=majority&appName=Telacad';
 
 // Create mongo connection
 const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 let gfsBucket;
 client.connect().then(() => {
-    const db = client.db('authentication');
+    const db = client.db('test');
     gfsBucket = new GridFSBucket(db, {
         bucketName: 'uploads'
     });

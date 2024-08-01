@@ -11,6 +11,7 @@ function UploadProject() {
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const [user, setUser] = useState({ id: '', name: '' });
+  const [fileKey, setFileKey] = useState(Date.now()); 
 
   useEffect(() => {
     if (!token) {
@@ -61,6 +62,7 @@ function UploadProject() {
     formData.append('file', file);
     formData.append('userId', user.id); // Include userId
     formData.append('userName', user.name); // Include userName
+    
 
     try {
       const response = await fetch('http://localhost:3000/api/files/upload', {
@@ -76,9 +78,10 @@ function UploadProject() {
         message.success('Proiectul a fost încărcat cu succes!');
         setTitle('');
         setDescription('');
-        setFile(null);
+        setFile('');
         setType(''); // Reset type
         setDifficulty(''); // Reset difficulty
+        setFileKey(Date.now());
       } else {
         const errorData = await response.json();
         console.error('Upload error:', errorData);
@@ -145,6 +148,7 @@ function UploadProject() {
           <input
             type="file"
             id="file"
+            key={fileKey} 
             onChange={(e) => setFile(e.target.files[0])}
             required
           />

@@ -11,6 +11,8 @@ import ProjectsPage from './pages/Projects.jsx'
 import { useAuth } from "./contexts/AuthContext.jsx";
 
 import ProjectDetailPage from './pages/ProjectDetailPage.jsx'; // Create this component
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
 
 const App = () => {
   const { isAuthenticated } = useAuth();
@@ -28,6 +30,8 @@ const App = () => {
         <Route path="/register" element={!isAuthenticated ? <Register /> : <Navigate to="/home" />} />
         <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/home" />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/projects" element={<ProjectsPage/>}/>
         <Route path="/upload" element={<Proiecte/>}/>
         
