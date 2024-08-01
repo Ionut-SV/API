@@ -20,7 +20,7 @@ function UploadProject() {
 
     async function fetchUserDetails() {
       try {
-        const response = await fetch('http://localhost:3000/api/user/me', {
+        const response = await fetch(`http://localhost:3000/api/user/me`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

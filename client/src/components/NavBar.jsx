@@ -24,7 +24,7 @@ function Navbar() {
   return (
     <>
       <div className={`navbar ${hideSidebar ? 'navbar--no-sidebar' : ''}`}>
-        <a href="/Home" className="navbar__brand">
+        <a href="/home" className="navbar__brand">
           CodeNetHub
         </a>
         <div className="navbar__right">

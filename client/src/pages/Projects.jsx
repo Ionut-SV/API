@@ -64,7 +64,7 @@ function ProjectsPage() {
   const filteredProjects = projects.filter((project) => {
     const typeMatches = appliedTag === 'all' || project.type === appliedTag;
     const difficultyMatches = appliedDifficulty === 'all' || project.difficulty === appliedDifficulty;
-    const searchMatches = project.title.toLowerCase().includes(appliedQuery.toLowerCase());
+    const searchMatches = project.title?.toLowerCase().includes(appliedQuery.toLowerCase()) ?? false;
     return typeMatches && difficultyMatches && searchMatches;
   });
 
