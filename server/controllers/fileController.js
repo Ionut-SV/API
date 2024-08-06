@@ -19,7 +19,6 @@ client.connect().then(() => {
 
 // Create storage engine
 exports.uploadFile = async (req, res) => {
-    
     console.log('User information in uploadFile:', req.user);
     if (!req.user) {
         return res.status(400).json({ error: 'User not authenticated' });
@@ -42,6 +41,7 @@ exports.uploadFile = async (req, res) => {
             return res.status(500).json({ error: 'An error occurred while fetching user details' });
         }
     }
+
     const storage = new GridFsStorage({
         url: mongoURI,
         options: { useNewUrlParser: true, useUnifiedTopology: true },
@@ -59,7 +59,7 @@ exports.uploadFile = async (req, res) => {
                     type: req.body.type,
                     difficulty: req.body.difficulty,
                     description: req.body.description,
-                    name: req.user.name ,
+                    name: req.user.name,
                     userId: req.user.id
                 }
             };
@@ -78,7 +78,7 @@ exports.uploadFile = async (req, res) => {
             return res.status(400).json({ error: 'No file was uploaded' });
         }
 
-        console.log('Uploaded file:', req.file); // Log file details for debugging 
+        console.log('Uploaded file:', req.file); // Log file details for debugging
         try {
             const userId = new mongoose.Types.ObjectId(req.user.id);
             const user = await User.findById(userId);
@@ -101,7 +101,7 @@ exports.uploadFile = async (req, res) => {
 
             await user.save();
 
-            res.status(201).json({
+            return res.status(201).json({
                 message: 'File uploaded successfully',
                 file: req.file,
                 user: {
@@ -116,7 +116,6 @@ exports.uploadFile = async (req, res) => {
             console.error('Error updating user score and rank:', err);
             return res.status(500).json({ error: 'An error occurred while updating user score and rank' });
         }
-        return res.status(201).json({ message: 'File uploaded successfully', file: req.file });
     });
 };
 

@@ -104,7 +104,7 @@ const Dashboard = () => {
         <Typography.Title level={3} strong>
           Proiectele Tale
         </Typography.Title>
-        <div className="project-list">
+        <div className="project-profile-list">
           {userProjects.length > 0 ? (
             userProjects.map((project) => (
               <ProjectCard
