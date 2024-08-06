@@ -8,7 +8,7 @@
   
   .profile-card {
     width: 100%;
-    max-width: 400px; /* Adjust as necessary */
+    max-width: 400px; /* Adjust as necessary */ 
     margin-bottom: 20px;
     margin-top: 100px;
   }
@@ -43,7 +43,6 @@
   .project-list {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    margin-top:40px;
     gap: 20px;
   }
   .project-list p {
@@ -62,12 +61,12 @@
 
   @media (max-width: 1200px) {
     .project-list {
-      grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+      grid-template-columns: repeat(3, 1fr); 
     }
   }
   
   @media (max-width: 768px) {
     .project-list {
-      grid-template-columns: 1fr; /* 1 column on mobile screens */
-    }
+      grid-template-columns: 1fr;
   }
+}

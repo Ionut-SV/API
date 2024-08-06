@@ -3,7 +3,7 @@ import { Avatar, Button, Card, Typography, Spin } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import ProjectCard from './ProjectCard'; // Adjust path as necessary // Ensure you have appropriate styles
+import ProjectCard from './ProjectCard'; 
 import '../styles/Dashboard.css'
 const Dashboard = () => {
   const { token, userData, logout } = useAuth();
