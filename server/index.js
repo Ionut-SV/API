@@ -20,8 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
 
  //Routes
- app.use('/api/user', userRouter);
-app.use ('/api/auth', authRouter);
+app.use('/api/user', userRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/files', fileRouter);
 
 

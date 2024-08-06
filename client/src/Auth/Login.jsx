@@ -1,13 +1,21 @@
 import React from 'react';
 import { Alert, Card, Input, Form, Spin, Typography, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useLogin from '../hooks/useLogin';
 
 const Login = () => {
     const { error, loading, loginUser } = useLogin();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from || '/'; // Default to home page if no from state
 
     const handleLogin = async (values) => {
-        await loginUser(values);
+        try {
+            await loginUser(values);
+            navigate(from, { replace: true }); // Redirect to the originally intended page
+        } catch (err) {
+            // Handle errors if loginUser throws them
+        }
     };
 
     return (

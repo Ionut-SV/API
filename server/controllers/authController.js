@@ -35,6 +35,8 @@ exports.signup = async(req, res, next) => {
                 name: newUser.name,
                 email: newUser.email,
                 role: newUser.role,
+                rank: newUser.rank,
+                score: newUser.score,
             },
         });
         
@@ -75,6 +77,8 @@ exports.login = async(req, res, next) => {
                 name: user.name,
                 email: user.email,
                 role: user.role,
+                rank: user.rank,
+                score: user.score,
             },
         });
     } catch(error) {

@@ -43,7 +43,6 @@ const AuthProvider = ({ children }) => {
         setToken(null);
         setUserData(null);
         setIsAuthenticated(false);
-        // Optionally, redirect the user to the login page
     };
 
     return (

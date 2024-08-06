@@ -30,11 +30,18 @@ function Navbar() {
         <div className="navbar__right">
           <ul className="navbar__menu">
             {isAuthenticated ? (
-              <li className="navbar__item">
-                <Link to="/" onClick={handleLogout} className="navbar__link">
-                  Logout
-                </Link>
-              </li>
+              <>
+                <li className="navbar__item">
+                  <Link to="/" onClick={handleLogout} className="navbar__link">
+                    Logout
+                  </Link>
+                </li>
+                <li className="navbar__item">
+                  <Link to="/dashboard" onClick={navToggle} className="navbar__link">
+                    Profil
+                  </Link>
+                </li>
+              </>
             ) : (
               <>
                 <li className="navbar__item">
