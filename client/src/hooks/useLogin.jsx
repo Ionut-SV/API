@@ -26,10 +26,10 @@ const useLogin = () => {
             } else if (res.status === 404) {
                 setError(data.message);
             } else {
-                message.error('Login failed');
+                message.error('Logarea a esuat');
             }
         } catch (error) {
-            message.error('Login failed');
+            message.error('LLogarea a esuat');
         } finally {
             setLoading(false);
         }

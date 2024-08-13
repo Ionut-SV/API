@@ -10,12 +10,12 @@ const Login = () => {
     const from = location.state?.from || '/'; // Default to home page if no from state
 
     const handleLogin = async (values) => {
-        try {
-            await loginUser(values);
-            navigate(from, { replace: true }); // Redirect to the originally intended page
-        } catch (err) {
-            // Handle errors if loginUser throws them
-        }
+        const success = await loginUser(values); // Wait for login attempt and get success status
+
+    // Only navigate if login was successful
+    if (success) {
+        navigate(from, { replace: true });
+    }
     };
 
     return (
