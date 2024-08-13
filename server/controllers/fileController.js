@@ -6,6 +6,7 @@ const User = require('../models/userModel');
 
 const mongoURI = 'mongodb+srv://telacad:telacad2024@telacad.ms1pwzj.mongodb.net/?retryWrites=true&w=majority&appName=Telacad';
 const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+const currentDate = new Date();
 
 let gfsBucket;
 client.connect().then(() => {
@@ -60,7 +61,9 @@ exports.uploadFile = async (req, res) => {
                     difficulty: req.body.difficulty,
                     description: req.body.description,
                     name: req.user.name,
-                    userId: req.user.id
+                    userId: req.user.id,
+                    createdAt: currentDate,
+                    modifiedOn: currentDate
                 }
             };
         }
@@ -92,17 +95,17 @@ exports.uploadFile = async (req, res) => {
 
             // Update rank based on the score
             if (user.score >= 1000) {
-                user.rank = 'Expert';
+                user.rank = 'Avansat';
             } else if (user.score >= 500) {
-                user.rank = 'Intermediate';
+                user.rank = 'Intermediar';
             } else {
-                user.rank = 'Beginner';
+                user.rank = 'Începător';
             }
 
             await user.save();
 
             return res.status(201).json({
-                message: 'File uploaded successfully',
+                message: 'Proiectul a fost încărcat cu succes!',
                 file: req.file,
                 user: {
                     _id: user._id,
@@ -114,7 +117,7 @@ exports.uploadFile = async (req, res) => {
             });
         } catch (err) {
             console.error('Error updating user score and rank:', err);
-            return res.status(500).json({ error: 'An error occurred while updating user score and rank' });
+            return res.status(500).json({ error: 'A apărut o eroare la actualizarea scorului și gradului' });
         }
     });
 };
@@ -162,6 +165,34 @@ exports.getFileByName = async (req, res) => {
     }
 };
 
+
+exports.getUserFiles = async (req, res) => {
+    if (!req.user || !req.user.id) {
+        return res.status(400).json({ error: 'User not authenticated' });
+    }
+
+    try {
+    
+        const userId = req.user.id.toString();
+        // console.log('User ID:', userId); // Debugging log
+
+        const files = await gfsBucket.find({ 'metadata.userId': userId }).toArray();
+
+        if (files.length === 0) {
+            console.log('No files found for the current user'); // Debugging log
+            return res.status(404).json({ message: 'No files found for the current user' });
+        }
+
+        res.status(200).json(files);
+    } catch (err) {
+        console.error('Error retrieving user files:', err);
+        // Ensure only one response is sent
+        if (!res.headersSent) {
+            res.status(500).json({ error: 'An error occurred while retrieving user files' });
+        }
+    }
+};
+
 exports.getFileById = async (req, res) => {
     const { id } = req.params;
 
@@ -195,31 +226,40 @@ exports.getFileById = async (req, res) => {
         res.status(500).json({ error: 'An error occurred while retrieving the file' });
     }
 };
-
-
-exports.getUserFiles = async (req, res) => {
-    if (!req.user || !req.user.id) {
-        return res.status(400).json({ error: 'User not authenticated' });
-    }
+exports.updateFile = async (req, res) => {
+    const { id } = req.params;
+    const { title, description, difficulty, type } = req.body;
 
     try {
-    
-        const userId = req.user.id.toString();
-        // console.log('User ID:', userId); // Debugging log
+        const objectId = new mongoose.Types.ObjectId(id);
 
-        const files = await gfsBucket.find({ 'metadata.userId': userId }).toArray();
+        // Găsește documentul fișierului în colecția 'uploads.files'
+        const filesCollection = getFilesCollection();
+        const file = await filesCollection.findOne({ _id: objectId });
 
-        if (files.length === 0) {
-            console.log('No files found for the current user'); // Debugging log
-            return res.status(404).json({ message: 'No files found for the current user' });
+        if (!file) {
+            return res.status(404).json({ message: 'File not found' });
         }
 
-        res.status(200).json(files);
-    } catch (err) {
-        console.error('Error retrieving user files:', err);
-        // Ensure only one response is sent
-        if (!res.headersSent) {
-            res.status(500).json({ error: 'An error occurred while retrieving user files' });
-        }
+        // Actualizează metadatele fișierului
+        await filesCollection.updateOne(
+            { _id: objectId },
+            {
+                $set: {
+                    'metadata.title': title || file.metadata?.title,
+                    'metadata.description': description || file.metadata?.description,
+                    'metadata.difficulty': difficulty || file.metadata?.difficulty,
+                    'metadata.type': type || file.metadata?.type,
+                    'metadata.modifiedOn': new Date()
+                }
+            }
+        );
+
+        // Returnează mesajul de succes
+        const updatedFile = await filesCollection.findOne({ _id: objectId });
+        res.status(200).json({ message: 'File updated successfully', file: updatedFile });
+    } catch (error) {
+        console.error('Error updating file:', error);
+        res.status(500).json({ message: 'Failed to update file', error: error.message });
     }
 };

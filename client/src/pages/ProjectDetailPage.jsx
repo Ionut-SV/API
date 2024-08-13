@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Navbar from '../components/NavBar'; // Asigură-te că calea este corectă
+import Navbar from '../components/NavBar';
+import Comments from '../components/Comments';  
 import '../styles/ProjectDetailPage.css';
 
 function ProjectDetailPage() {
-    const { id } = useParams(); // Obține ID-ul proiectului din URL
-    const [project, setProject] = useState(null); // Inițializează starea cu null
-    const [error, setError] = useState(null); // Starea pentru mesajele de eroare
+    const { id } = useParams(); 
+    const [project, setProject] = useState(null); 
+    const [error, setError] = useState(null); 
 
     useEffect(() => {
         async function fetchProject() {
@@ -42,6 +43,8 @@ function ProjectDetailPage() {
     }
 
     // URL-ul pentru a accesa fișierul pentru previzualizare
+    console.log('Project:', project); // Log project to verify the structure
+    console.log('Filename:', project.filename);
     const fileUrl = `http://localhost:3000/api/files/${project.filename}`;
 
     const renderPreview = () => {
@@ -81,14 +84,21 @@ function ProjectDetailPage() {
                 <div className="project-metadata">
                     <h2>{project.metadata?.title || 'No title available'}</h2>
                     <p>{project.metadata?.description || 'No description available'}</p>
-                    <div>Author: {project.metadata?.name || 'No author information'}</div>
-                    <div>Type: {project.metadata?.type || 'No type information'}</div>
-                    <div>Difficulty: {project.metadata?.difficulty || 'No difficulty information'}</div>
+                    <div>Autor: {project.metadata?.name || 'No author information'}</div>
+                    <div>Tip: {project.metadata?.type || 'No type information'}</div>
+                    <div>Dificultate: {project.metadata?.difficulty || 'No difficulty information'}</div>
                 </div>
                 <div className="project-file">
                     {renderPreview()}
                     
                 </div>
+            </div>
+            <div className="comments-section">
+            {project.filename ? (
+                    <Comments filename={project.filename} />
+                ) : (
+                    <div>No filename available for comments.</div>
+                )}
             </div>
         </div>
         
