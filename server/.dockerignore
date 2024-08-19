@@ -5,6 +5,9 @@ node_modules
 Dockerfile
 .dockerignore
 
+# Ignore client-side code
+client/
+
 # Ignore log files
 *.log
 
@@ -12,6 +15,4 @@ Dockerfile
 *.md
 
 # Ignore environment files
-.env
-
 keys
